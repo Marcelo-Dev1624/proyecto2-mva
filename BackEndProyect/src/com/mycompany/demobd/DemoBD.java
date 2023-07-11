@@ -62,7 +62,7 @@ public class DemoBD {
                 //Paso 1
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 //Paso 2
-                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/?user=root", "root", "1234");
+                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/?user=root", "root", "root");
                 System.out.println("CONEXION: " + conn);
 
             }
