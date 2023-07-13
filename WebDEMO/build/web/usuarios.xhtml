@@ -37,11 +37,6 @@
                 <p:resetInput target=":form:manage-user-contentAgregar"/>
             </p:commandButton>
             
-            <p:commandButton value="Cerrar Sesion.." icon="pi pi-times" actionListener="#{loginController.logoutSalir()}" process="@this"
-                             styleClass="ui-button-danger"/>
-        
-            
-            
             <div class="card">
                 <p:dataTable var="usuario" value="#{loginController.usuarios}" paginator="true" 
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -87,6 +82,7 @@
                             <p:resetInput target=":form:manage-user-contentDelete"/>
                         </p:commandButton>
 
+                        
                     </p:column>
                 </p:dataTable>
 
@@ -247,7 +243,7 @@
                 </p:outputPanel>
 
                 <f:facet name="footer">       
-                    <p:commandButton value="Eliminar" styleClass="ui-button-danger" icon="pi pi-check" actionListener="#{loginController.deleteUser()}"
+                    <p:commandButton value="Eliminar" icon="pi pi-check" actionListener="#{loginController.deleteUser()}"
                                      update="form manage-user-contentDelete" process="manage-user-contentDelete @this"/>     
                     <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('manageUserDialogDelete').hide()"
                                      class="ui-button-secondary"/>

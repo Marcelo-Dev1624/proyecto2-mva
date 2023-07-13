@@ -11,7 +11,14 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
+<<<<<<< HEAD
                     <file>${file.reference.mysql-connector-j-8.0.32.jar}</file>
+=======
+                    <file>${file.reference.BackEndProyect.jar}</file>
+                </library>
+                <library dirs="200">
+                    <file>${file.reference.BackEndProyect.jar-1}</file>
+>>>>>>> Roberto
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">

@@ -174,7 +174,15 @@ public class LoginController implements Serializable {
         //---this.servicioUsuario.listarUsuarios();
 
     }
+<<<<<<< HEAD
 
+=======
+    
+    public void logout(){
+    
+    this.redireccionar("/faces/index.xhtml");
+    }
+>>>>>>> Roberto
     public void savePermiso() {
 
         try {

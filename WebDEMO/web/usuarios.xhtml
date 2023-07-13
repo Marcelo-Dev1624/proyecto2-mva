@@ -37,11 +37,14 @@
                 <p:resetInput target=":form:manage-user-contentAgregar"/>
             </p:commandButton>
             
+<<<<<<< HEAD
             <p:commandButton value="Cerrar Sesion.." icon="pi pi-times" actionListener="#{loginController.logoutSalir()}" process="@this"
                              styleClass="ui-button-danger"/>
         
             
             
+=======
+>>>>>>> Roberto
             <div class="card">
                 <p:dataTable var="usuario" value="#{loginController.usuarios}" paginator="true" 
                              paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -87,6 +90,7 @@
                             <p:resetInput target=":form:manage-user-contentDelete"/>
                         </p:commandButton>
 
+                        
                     </p:column>
                 </p:dataTable>
 
