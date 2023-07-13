@@ -11,11 +11,21 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
+<<<<<<< HEAD
+                    <file>${file.reference.mysql-connector-j-8.0.32.jar}</file>
+=======
                     <file>${file.reference.BackEndProyect.jar}</file>
+<<<<<<< HEAD
+                </library>
+                <library dirs="200">
+                    <file>${file.reference.BackEndProyect.jar-1}</file>
+>>>>>>> Roberto
+=======
+>>>>>>> parent of a724f3c (test)
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.mysql-connector-j-8.0.32.jar}</file>
+                    <file>${file.reference.BackEndProyect.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">

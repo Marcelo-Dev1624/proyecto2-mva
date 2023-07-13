@@ -24,7 +24,15 @@ public abstract class Servicio {
 //Paso 1
         Class.forName("com.mysql.jdbc.Driver");
         //Paso 2
+<<<<<<< HEAD
+<<<<<<< HEAD
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/proyecto2?zeroDateTimeBehavior=convertToNull", "root", "1234");
+=======
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/proyecto2?zeroDateTimeBehavior=convertToNull", "root", "1738420");
+>>>>>>> Roberto
+=======
         conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/proyecto2?zeroDateTimeBehavior=convertToNull", "root", "root");
+>>>>>>> parent of a724f3c (test)
         System.out.println("CONEXION: " + conn);
         return conn;
     }
