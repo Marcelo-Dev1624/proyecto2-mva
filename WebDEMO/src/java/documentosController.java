@@ -35,7 +35,7 @@ public class documentosController {
             UploadedFile file = event.getFile();
             if (file != null && file.getContent() != null && file.getContent().length > 0 && file.getFileName() != null) {
                 this.originalImageFile = file;
-                this.copyFileInFileSystem(file.getInputStream(), "C:\\Users\\laboratorio\\Desktop\\temp\\", this.originalImageFile.getFileName());
+                this.copyFileInFileSystem(file.getInputStream(), "C:\\Users\\Brenda\\Desktop\\Marcelo\\docsProyecto\\", this.originalImageFile.getFileName());
                 FacesMessage msg = new FacesMessage("Successful", this.originalImageFile.getFileName() + " is uploaded.");
                 FacesContext.getCurrentInstance().addMessage(null, msg);
             }
