@@ -178,11 +178,14 @@ public class LoginController implements Serializable {
 
 =======
     
+<<<<<<< HEAD
     public void logout(){
     
     this.redireccionar("/faces/index.xhtml");
     }
 >>>>>>> Roberto
+=======
+>>>>>>> parent of a724f3c (test)
     public void savePermiso() {
 
         try {
