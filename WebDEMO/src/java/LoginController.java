@@ -2,20 +2,9 @@
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import com.mycompany.demobd.DemoBD;
-import com.mycompany.demobd.ICrud;
 import com.mycompany.demobd.PermisoTO;
-import com.mycompany.demobd.Servicio;
 import com.mycompany.demobd.ServicioUsuario;
-import com.mycompany.demobd.TesterServicio;
 import com.mycompany.demobd.UsuarioTO;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -25,8 +14,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import org.primefaces.PrimeFaces;
-import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.file.UploadedFile;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
