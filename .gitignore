@@ -22,5 +22,13 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+<<<<<<< HEAD
+
+
+
+BackEndProyect/src/com/mycompany/demobd/Servicio.java
+
+=======
 BackEndProyect/src/com/mycompany/demobd/DemoBD.java
 BackEndProyect/src/com/mycompany/demobd/Servicio.java
+>>>>>>> parent of a724f3c (test)
