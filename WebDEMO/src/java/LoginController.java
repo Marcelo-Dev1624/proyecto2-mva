@@ -163,6 +163,10 @@ public class LoginController implements Serializable {
 
     }
     
+    public void logout(){
+    
+    this.redireccionar("/faces/index.xhtml");
+    }
     public void savePermiso() {
         
         try {

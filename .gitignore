@@ -24,3 +24,11 @@ hs_err_pid*
 replay_pid*
 BackEndProyect/src/com/mycompany/demobd/DemoBD.java
 BackEndProyect/src/com/mycompany/demobd/Servicio.java
+/WebDEMO/nbproject/private/
+/WebDEMO/build/
+/BackEndProyect/nbproject/private/
+/BackEndProyect/build/
+/BackEndProyect/dist/
+BackEndProyect/build/built-jar.properties
+BackEndProyect/src/com/mycompany/demobd/Servicio.java
+BackEndProyect/src/com/mycompany/demobd/Servicio.java

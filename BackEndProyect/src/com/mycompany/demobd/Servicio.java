@@ -24,7 +24,7 @@ public abstract class Servicio {
 //Paso 1
         Class.forName("com.mysql.jdbc.Driver");
         //Paso 2
-        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/proyecto2?zeroDateTimeBehavior=convertToNull", "root", "root");
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/proyecto2?zeroDateTimeBehavior=convertToNull", "root", "1738420");
         System.out.println("CONEXION: " + conn);
         return conn;
     }
