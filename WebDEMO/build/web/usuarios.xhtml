@@ -1,0 +1,265 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Usuarios</title>
+    </h:head>
+    <h:body>
+        <h1> Lista de Colaboradores</h1>
+    <div class="card">
+            <p:tabMenu activeIndex="#{param.i}">
+                <p:menuitem value="Home" outcome="bienvenida" icon="pi pi-fw pi-home">
+                    <f:param name="i" value="0"/>
+                </p:menuitem>
+                <p:menuitem value="Usuarios" outcome="usuarios" icon="pi pi-fw pi-calendar">
+                    <f:param name="i" value="1"/>
+                </p:menuitem>
+                <p:menuitem value="Permisos" outcome="permisos" update="permiso" icon="pi pi-fw pi-pencil">
+                    <f:param name="i" value="2"/>
+                </p:menuitem>
+                <p:menuitem value="Documentos" outcome="Documentos" update="Documentos" icon="pi pi-file-pdf">
+                    <f:param name="i" value="3"/>
+                </p:menuitem> 
+                <p:menuitem value="Perfil" outcome="perfil" update="perfil" icon="pi pi-user">
+                    <f:param name="i" value="4"/>
+                </p:menuitem> 
+                <p:menuitem value="Gestionar vacaciones" outcome="gestionVacaciones" update="gestionVacaciones" icon="pi pi-sun">
+                    <f:param name="i" value="5"/>
+                </p:menuitem> 
+            </p:tabMenu>
+        </div>
+        <br/>
+
+        <h:form id="form"> 
+
+            <p:commandButton value="Nuevo usuario" icon="pi pi-plus" actionListener="#{loginController.openNew}"
+                             update=":form:manage-user-contentAgregar" oncomplete="PF('manageUserDialogAgregar').show()"
+                             rendered="#{loginController.usuario.rol eq 'admin'|| loginController.usuario.rol eq 'manager'}"
+                             styleClass="ui-button-success" style="margin-right: .5rem">
+                <p:resetInput target=":form:manage-user-contentAgregar"/>
+            </p:commandButton>
+            
+            <p:commandButton value="Cerrar Sesion.." icon="pi pi-times" actionListener="#{loginController.logoutSalir()}" process="@this"
+                             styleClass="ui-button-danger"/>
+        
+            
+            
+            <div class="card">
+                <p:dataTable var="usuario" value="#{loginController.usuarios}" paginator="true" 
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rows="20">
+
+                    <p:column headerText="Correo" sortBy="#{usuario.correo}" filterBy="#{usuario.correo}" filterMatchMode="contains">
+                        <h:outputText value="#{usuario.correo}" />
+                    </p:column>
+                    <p:column headerText="Clave" sortBy="#{usuario.clave}" filterBy="#{usuario.clave}" filterMatchMode="contains">
+                        <h:outputText value="#{usuario.clave}" />
+                    </p:column>
+                    <p:column headerText="Nombre" sortBy="#{usuario.nombre}" filterBy="#{usuario.nombre}" filterMatchMode="contains">
+                        <h:outputText value="#{usuario.nombre}" />
+                    </p:column>
+
+                    <p:column headerText="Apellidos" sortBy="#{usuario.apellido}" filterBy="#{usuario.apellido}" filterMatchMode="contains">
+                        <h:outputText value="#{usuario.apellido}" />
+                    </p:column>
+                    <p:column headerText="Rol" sortBy="#{usuario.rol}" filterBy="#{usuario.rol}" filterMatchMode="contains">
+                        <h:outputText value="#{usuario.rol}" />
+                    </p:column>
+
+                    <p:column headerText="Estado">
+                        <h:outputText value="#{usuario.estado}" />
+                    </p:column>
+
+                    <p:column>
+                        
+                        <p:commandButton icon="pi pi-pencil"  update=":form:manage-user-contentEdit"
+                                         oncomplete="PF('manageUserDialogEdit').show()"
+                                         styleClass="edit-button rounded-button ui-button-success" 
+                                         rendered="#{loginController.usuario.rol eq 'admin'|| loginController.usuario.rol eq 'manager'}" process="@this">
+                            <f:setPropertyActionListener value="#{usuario}"  target="#{loginController.selectedUsuario}"/>
+                            <p:resetInput target=":form:manage-user-contentEdit"/>
+
+                        </p:commandButton>
+
+                        <p:commandButton  icon="pi pi-times" update=":form:manage-user-contentDelete"
+                                          oncomplete="PF('manageUserDialogDelete').show()" 
+                                          rendered="#{loginController.usuario.rol eq 'admin'|| loginController.usuario.rol eq 'manager'}"
+                                          styleClass="rounded-button ui-button-danger" process="@this">
+                            <f:setPropertyActionListener value="#{usuario}" target="#{loginController.selectedUsuario}"/>
+                            <p:resetInput target=":form:manage-user-contentDelete"/>
+                        </p:commandButton>
+
+                    </p:column>
+                </p:dataTable>
+
+
+            </div>
+
+            <!-- Boton de Crear usuario - Empieza-->
+
+            <p:dialog header="Detalle del usuario" showEffect="fade" modal="true"
+                      widgetVar="manageUserDialogAgregar" responsive="true">
+                <p:outputPanel id="manage-user-contentAgregar" class="ui-fluid">
+
+
+
+
+                    <p:outputPanel>
+                        <div class="p-field">
+                            <p:outputLabel for="mail">Correo</p:outputLabel>
+                            <p:inputText id="mail" required="true" autocomplete="false" value="#{loginController.selectedUsuario.correo}"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="pass">Clave</p:outputLabel>
+                            <p:inputText id="pass" required="true" autocomplete="false" value="#{loginController.selectedUsuario.clave}"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="name">Nombre</p:outputLabel>
+                            <p:inputText id="name" required="true" autocomplete="false" value="#{loginController.selectedUsuario.nombre}"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="surname">Apellido</p:outputLabel>
+                            <p:inputText id="surname"  required="true" autocomplete="false" value="#{loginController.selectedUsuario.apellido}"/>
+                        </div>
+                        <div class="p-field">
+
+                            <p:outputLabel for="role" value="Rol"/>
+                            <p:selectOneMenu id="role" required="true" value="#{loginController.selectedUsuario.rol}">
+                                <f:selectItem itemLabel="Seleccione Rol" itemDisabled="true" itemValue=""/>
+                                <f:selectItem itemLabel="admin" itemValue="admin"/>
+                                <f:selectItem itemLabel="manager" itemValue="manager"/>
+                                <f:selectItem itemLabel="colaborador" itemValue="colaborador"/>
+                                <f:facet name="footer">
+                                    <p:divider styleClass="mt-0" />
+                                    <h:outputText value="3 options" style="font-weight:bold;"/>
+                                </f:facet>
+                            </p:selectOneMenu> 
+                        </div>
+
+                    </p:outputPanel>
+
+
+                </p:outputPanel>
+
+                <f:facet name="footer">     
+                    <p:commandButton value="Guardar" icon="pi pi-check"  actionListener="#{loginController.saveUser()}"
+                                     update="form manage-user-contentAgregar" process="manage-user-contentAgregar @this"/> 
+
+
+                    <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('manageUserDialogAgregar').hide()"
+                                     class="ui-button-secondary"/>
+                </f:facet>
+
+            </p:dialog>
+            <p:growl id="mensaje"   showDetail="true"/>
+
+
+            <!-- Boton de crear usuario - Termina-->
+
+
+            <!-- Boton de editar usuario - Empieza-->
+
+            <p:dialog header="Detalle del usuario" showEffect="fade" modal="true"
+                      widgetVar="manageUserDialogEdit" responsive="true">
+                <p:outputPanel id="manage-user-contentEdit" class="ui-fluid">
+
+
+
+
+                    <p:outputPanel>
+                        <div class="p-field">
+                            <p:outputLabel for="mail2">Correo</p:outputLabel>
+                            <p:inputText id="mail2" required="true" disabled="true" value="#{loginController.selectedUsuario.correo}"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="pass2">Clave</p:outputLabel>
+                            <p:inputText id="pass2" required="true" value="#{loginController.selectedUsuario.clave}"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="name2">Nombre</p:outputLabel>
+                            <p:inputText id="name2" required="true" value="#{loginController.selectedUsuario.nombre}"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="surname2">Apellido</p:outputLabel>
+                            <p:inputText id="surname2" required="true" value="#{loginController.selectedUsuario.apellido}"/>
+                        </div>
+                        <div class="p-field">
+
+                            <p:outputLabel for="role2" value="Rol"/>
+                            <p:selectOneMenu id="role2" required="true" value="#{loginController.selectedUsuario.rol}">
+                                <f:selectItem itemLabel="Seleccione Rol" itemDisabled="true" itemValue=""/>
+                                <f:selectItem itemLabel="admin" itemValue="admin"/>
+                                <f:selectItem itemLabel="manager" itemValue="manager"/>
+                                <f:selectItem itemLabel="colaborador" itemValue="colaborador"/>
+                                <f:facet name="footer">
+                                    <p:divider styleClass="mt-0" />
+                                    <h:outputText value="3 options" style="font-weight:bold;"/>
+                                </f:facet>
+                            </p:selectOneMenu> 
+                        </div>
+
+                    </p:outputPanel>
+
+
+                </p:outputPanel>
+
+                <f:facet name="footer">       
+                    <p:commandButton value="Actualizar" icon="pi pi-check" actionListener="#{loginController.updateUser}"
+                                     update="form manage-user-contentEdit" process="manage-user-contentEdit @this"/>     
+                    <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('manageUserDialogEdit').hide()"
+                                     class="ui-button-secondary"/>
+                </f:facet>
+
+            </p:dialog>
+            <p:growl id="mensaje2"   showDetail="true"/>
+            <!-- Boton de editar usuario  - Termina-->
+
+            <p:dialog header="Detalle del usuario" showEffect="fade" modal="true"
+                      widgetVar="manageUserDialogDelete" responsive="true">
+                <p:outputPanel id="manage-user-contentDelete" class="ui-fluid">
+
+
+
+
+                    <p:outputPanel>
+                        <div class="p-field">
+                            <p:outputLabel for="mail3">Correo</p:outputLabel>
+                            <p:inputText id="mail3" disabled="true"  value="#{loginController.selectedUsuario.correo}"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="pass3">Clave</p:outputLabel>
+                            <p:inputText id="pass3" disabled="true" value="#{loginController.selectedUsuario.clave}"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="name3">Nombre</p:outputLabel>
+                            <p:inputText id="name3" disabled="true" value="#{loginController.selectedUsuario.nombre}"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="surname3">Apellido</p:outputLabel>
+                            <p:inputText id="surname3" disabled="true" value="#{loginController.selectedUsuario.apellido}"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel>ESTA SEGURO DE ELIMINAR ESTE USUARIO?</p:outputLabel>
+
+                        </div>
+
+                    </p:outputPanel>
+
+
+                </p:outputPanel>
+
+                <f:facet name="footer">       
+                    <p:commandButton value="Eliminar" styleClass="ui-button-danger" icon="pi pi-check" actionListener="#{loginController.deleteUser()}"
+                                     update="form manage-user-contentDelete" process="manage-user-contentDelete @this"/>     
+                    <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('manageUserDialogDelete').hide()"
+                                     class="ui-button-secondary"/>
+                </f:facet>
+
+            </p:dialog>
+        </h:form>
+    </h:body>
+</html>
+

@@ -1,0 +1,181 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Gestionar Vacaciones</title>
+    </h:head>
+    <h:body>
+        <h1>Gestionar vacaciones</h1>
+        <div class="card">
+            <p:tabMenu activeIndex="#{param.i}">
+                <p:menuitem value="Home" outcome="bienvenida" icon="pi pi-fw pi-home">
+                    <f:param name="i" value="0"/>
+                </p:menuitem>
+                <p:menuitem value="Usuarios" outcome="usuarios" icon="pi pi-fw pi-calendar">
+                    <f:param name="i" value="1"/>
+                </p:menuitem>
+                <p:menuitem value="Permisos" outcome="permisos" update="permiso" icon="pi pi-fw pi-pencil">
+                    <f:param name="i" value="2"/>
+                </p:menuitem>
+                <p:menuitem value="Documentos" outcome="Documentos" update="Documentos" icon="pi pi-file-pdf">
+                    <f:param name="i" value="3"/>
+                </p:menuitem> 
+                <p:menuitem value="Perfil" outcome="perfil" update="perfil" icon="pi pi-user">
+                    <f:param name="i" value="4"/>
+                </p:menuitem> 
+                <p:menuitem value="Gestionar vacaciones" outcome="gestionVacaciones" update="gestionVacaciones" icon="pi pi-sun">
+                    <f:param name="i" value="5"/>
+                </p:menuitem> 
+            </p:tabMenu>
+        </div>
+        <br/>
+        
+        
+        <h:form id="form"> 
+
+            <p:commandButton value="Solicitar vacaciones" icon="pi pi-plus" actionListener="#{loginController.openNew}"
+                             update=":form:manage-user-contentGestionarVacaciones" oncomplete="PF('manageUserDialogGestionarVacaciones').show()"
+
+                             styleClass="ui-button-success" style="margin-right: .5rem">
+                <p:resetInput target=":form:manage-user-contentGestionarVacaciones"/>
+            </p:commandButton>
+
+
+            <div class="card">
+                <p:dataTable var="permiso" id="permiso" value="#{loginController.permisos}" paginator="true" 
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rows="20">
+
+                    <p:column headerText="Número Ticket" sortBy="#{permiso.numTicket}" filterBy="#{permiso.numTicket}" filterMatchMode="contains">
+                        <h:outputText value="#{permiso.numTicket}" />
+                    </p:column>
+                    <p:column headerText="Tipo" sortBy="#{permiso.tipo}" filterBy="#{permiso.tipo}" filterMatchMode="contains">
+                        <h:outputText value="#{permiso.tipo}" />
+                    </p:column>
+                    <p:column headerText="Motivo" sortBy="#{permiso.motivo}" filterBy="#{permiso.motivo}" filterMatchMode="contains">
+                        <h:outputText value="#{permiso.motivo}" />
+                    </p:column>
+
+                    <p:column headerText="Remitente" sortBy="#{permiso.remitente}" filterBy="#{permiso.remitente}" filterMatchMode="contains">
+                        <h:outputText value="#{permiso.remitente}" />
+                    </p:column>
+                    <p:column headerText="Receptor" sortBy="#{permiso.receptor}" filterBy="#{permiso.receptor}" filterMatchMode="contains">
+                        <h:outputText value="#{permiso.receptor}" />
+                    </p:column>
+                    <p:column headerText="Estado" sortBy="#{permiso.estado}" filterBy="#{permiso.estado}" filterMatchMode="contains">
+                        <h:outputText value="#{permiso.estado}" />
+                    </p:column>
+
+                    <p:column>
+
+                        <p:commandButton  icon="pi pi-user" value="Responder" update=":form:manage-user-contentRespuesta"
+                                          oncomplete="PF('manageUserDialogRespuesta').show()" 
+                                          rendered="#{loginController.usuario.rol eq 'admin'|| loginController.usuario.rol eq 'manager'}"
+                                          styleClass="rounded-button ui-button-success" process="@this">
+                            <f:setPropertyActionListener value="#{permiso}" target="#{loginController.selectedPermiso}"/>
+                            <p:resetInput target=":form:manage-user-contentRespuesta"/>
+                        </p:commandButton>
+                        
+                        
+
+
+                        
+
+
+
+
+
+                    </p:column>
+                </p:dataTable>
+
+
+            </div>
+
+            <p:dialog header="Vacaciones Disponibles" showEffect="fade" modal="true"
+                      widgetVar="manageUserDialogGestionarVacaciones" responsive="true">
+                <p:outputPanel id="manage-user-contentGestionarVacaciones" class="ui-fluid">
+
+
+
+
+                    <p:outputPanel>
+                        <p:outputLabel for="Tipo" value="Tipo"/>
+                        <p:selectOneMenu id="Tipo" required="true" value="#{loginController.selectedPermiso.tipo}">
+                            <f:selectItem itemLabel="Seleccione Tipo" itemDisabled="true" itemValue=""/>
+                            <f:selectItem itemLabel="Ausencia" itemValue="Ausencia"/>
+                            <f:selectItem itemLabel="Tardia" itemValue="Tardia"/>
+
+
+                        </p:selectOneMenu> 
+                        <div class="p-field">
+                            <p:outputLabel for="motivo">Clave</p:outputLabel>
+                            <p:inputTextarea id="motivo" required="true"  value="#{loginController.selectedPermiso.motivo}"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="receptor">Receptor</p:outputLabel>
+                            <p:inputText id="receptor" required="true" autocomplete="false" value="#{loginController.selectedPermiso.receptor}"/>
+                        </div>
+
+                        <div class="p-field">
+
+
+                        </div>
+
+                    </p:outputPanel>
+
+
+                </p:outputPanel>
+
+                <f:facet name="footer">     
+                    <p:commandButton value="Guardar" icon="pi pi-check"  actionListener="#{loginController.savePermiso}"
+                                     update="form manage-user-contentGestionarVacaciones" process="manage-user-contentGestionarVacaciones @this"/> 
+
+
+                    <p:commandButton value="Cancelar" icon="pi pi-times" onclick="PF('manageUserDialogGestionarVacaciones').hide()"
+                                     class="ui-button-secondary"/>
+                </f:facet>
+
+            </p:dialog>
+            <p:growl id="mensaje"   showDetail="true"/>
+
+            <p:dialog header="Detalle del permiso" showEffect="fade" modal="true"
+                      widgetVar="manageUserDialogRespuesta" responsive="true">
+                <p:outputPanel id="manage-user-contentRespuesta" class="ui-fluid">
+
+
+
+
+                    <p:outputPanel>
+                        <div class="p-field">
+                            <p:outputLabel for="tipo2">Tipo</p:outputLabel>
+                            <p:inputText id="tipo2" disabled="true"  value="#{loginController.selectedPermiso.tipo}"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="motivo2">Motivo</p:outputLabel>
+                            <p:inputTextarea id="motivo2" disabled="true" value="#{loginController.selectedPermiso.motivo}"/>
+                        </div>
+                        <div class="p-field">
+                            <p:outputLabel for="remitente2">Remitente</p:outputLabel>
+                            <p:inputText id="remitente2" disabled="true" value="#{loginController.selectedPermiso.remitente}"/>
+                        </div>                                             
+
+                    </p:outputPanel>
+
+
+                </p:outputPanel>
+
+                <f:facet name="footer">       
+                    <p:commandButton value="Aprobar" icon="pi pi-check" actionListener="#{loginController.aprobarPermiso()}"
+                                     update="form manage-user-contentRespuesta" process="manage-user-contentRespuesta @this"/>     
+                    <p:commandButton value="Rechazar" styleClass="ui-button-danger" icon="pi pi-times" actionListener="#{loginController.rechazarPermiso()}"
+                                     update="form manage-user-contentRespuesta" process="manage-user-contentRespuesta @this"/> 
+                </f:facet>
+
+            </p:dialog>
+        </h:form>
+    </h:body>
+</html>
+
