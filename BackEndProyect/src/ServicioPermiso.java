@@ -109,6 +109,39 @@ public class ServicioPermiso extends Servicio implements ICrud<PermisoTO> {
         return retorno;
 
     }
+    
+    public List<PermisoTO> demePermisos() throws SQLException, Exception {
+
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection conn = super.getConection();
+
+        List<PermisoTO> retorno = new ArrayList<PermisoTO>();
+        try {
+            ps = getConection().prepareStatement("SELECT * FROM TICKET");
+            
+            rs = ps.executeQuery();
+            while (rs.next()) {
+
+                int numTicket = rs.getInt("numTicket");
+                String tipo = rs.getString("tipo");
+                String motivo = rs.getString("motivo");
+                String remitente = rs.getString("remitente");
+                String receptor = rs.getString("receptor");
+                String estado = rs.getString("estado");
+                PermisoTO permisoTO = new PermisoTO(numTicket, tipo, motivo, remitente, receptor, estado);
+                retorno.add(permisoTO);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            super.cerrar(conn);
+            super.cerrar(rs);
+            super.cerrar(ps);
+        }
+        return retorno;
+
+    }
 
     public void aprobar(int numTicket) throws SQLException, Exception {
 

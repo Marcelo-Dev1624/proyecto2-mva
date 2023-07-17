@@ -20,16 +20,16 @@ public class DemoBD {
 
     public static void main(String[] args) {
         try {
-            UsuarioTO usuarioTO_1 = new UsuarioTO("test", "Jose Andres","admin");
+           // UsuarioTO usuarioTO_1 = new UsuarioTO("test", "Jose Andres","admin");
             //insertar(usuarioTO_1);
 
             //usuarioTO_1 = new UsuarioTO(6, "Mariana");
             //insertar(usuarioTO_1);
             //usuarioTO_1 = new UsuarioTO(1, "CARLOS");
-            modificar(usuarioTO_1);
+           // modificar(usuarioTO_1);
 
             //usuarioTO_1 = new UsuarioTO(5, "Carlos");
-            eliminar(usuarioTO_1);
+            //eliminar(usuarioTO_1);
             List<UsuarioTO> listaRetorno = demeUsuarios();
             for (UsuarioTO usuarioTO : listaRetorno) {
                 System.out.println("ID: " + usuarioTO.getCorreo() + " Nombre: " + usuarioTO.getClave());

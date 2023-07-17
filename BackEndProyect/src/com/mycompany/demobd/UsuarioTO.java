@@ -18,40 +18,44 @@ public class UsuarioTO implements Serializable {
     private String apellido;
     private String estado;
     private String rol;
+    private String manager;
 
     public UsuarioTO() {
     }
 
-    public UsuarioTO(String correo, String clave,String rol) {
+    public UsuarioTO(String correo, String clave,String rol,String manager) {
         this.correo = correo;
         this.clave = clave;
         this.rol = rol;
+        this.manager = manager;
     }
     
 
-    public UsuarioTO(String correo, String clave, String nombre, String apellido, String estado) {
+    public UsuarioTO(String correo, String nombre, String apellido,String rol,String manager) {
         this.correo = correo;
-        this.clave = clave;
+        
         this.nombre = nombre;
         this.apellido = apellido;
-        this.estado = estado;
-    }
-    
-
-    public UsuarioTO(String correo, String nombre, String apellido, String estado) {
-        this.correo = correo;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.estado = estado;
-    }
-
-    public UsuarioTO(String correo, String clave, String nombre, String apellido, String estado, String rol) {
-        this.correo = correo;
-        this.clave = clave;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.estado = estado;
         this.rol = rol;
+        this.manager = manager;
+    }
+    
+
+    /*public UsuarioTO(String correo, String nombre, String apellido, String estado) {
+        this.correo = correo;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.estado = estado;
+    }*/
+
+    public UsuarioTO(String correo, String clave, String nombre, String apellido, String rol, String manager) {
+        this.correo = correo;
+        this.clave = clave;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        
+        this.rol = rol;
+        this.manager = manager;
     }
     
 
@@ -101,6 +105,14 @@ public class UsuarioTO implements Serializable {
 
     public void setRol(String rol) {
         this.rol = rol;
+    }
+
+    public String getManager() {
+        return manager;
+    }
+
+    public void setManager(String manager) {
+        this.manager = manager;
     }
 
 }
